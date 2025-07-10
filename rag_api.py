@@ -8,12 +8,16 @@ from langchain_community.vectorstores import FAISS
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnablePassthrough, RunnableLambda, RunnableParallel
 from langchain_core.output_parsers import StrOutputParser
+from dotenv import load_dotenv
 import os
 
 app = FastAPI()
 
-# Get Google API key from environment variable
-google_api_key = os.environ["AIzaSyCxfdxizhg9dztb_Ky5pNScmT9vITpGZ3s"]
+# ✅ load env vars from .env
+load_dotenv()
+
+# ✅ get Google API key from env var
+google_api_key = os.environ["GOOGLE_API_KEY"]
 
 class QueryRequest(BaseModel):
     video_id: str
