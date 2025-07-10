@@ -8,9 +8,13 @@ from langchain_community.vectorstores import FAISS
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnablePassthrough, RunnableLambda, RunnableParallel
 from langchain_core.output_parsers import StrOutputParser
+import os
 
 app = FastAPI()
+
+# Get Google API key from environment variable
 google_api_key = os.environ["AIzaSyCxfdxizhg9dztb_Ky5pNScmT9vITpGZ3s"]
+
 class QueryRequest(BaseModel):
     video_id: str
     question: str
@@ -36,7 +40,7 @@ def ask_video_question(req: QueryRequest):
 
     Model = ChatGoogleGenerativeAI(
         model="gemini-1.5-flash",
-        google_api_key=google_api_key
+        google_api_key=google_api_key,
         temperature=0.1
     )
 
@@ -63,4 +67,3 @@ def ask_video_question(req: QueryRequest):
     response = final_prompt.invoke(req.question)
 
     return {"answer": response}
-
