@@ -10,7 +10,7 @@ from langchain_core.runnables import RunnablePassthrough, RunnableLambda, Runnab
 from langchain_core.output_parsers import StrOutputParser
 
 app = FastAPI()
-
+google_api_key = os.environ["AIzaSyCxfdxizhg9dztb_Ky5pNScmT9vITpGZ3s"]
 class QueryRequest(BaseModel):
     video_id: str
     question: str
@@ -28,7 +28,7 @@ def ask_video_question(req: QueryRequest):
 
     embeddings = GoogleGenerativeAIEmbeddings(
         model="models/embedding-001",
-        google_api_key=os.environ["AIzaSyCxfdxizhg9dztb_Ky5pNScmT9vITpGZ3s"]
+        google_api_key=google_api_key
     )
 
     vector_store = FAISS.from_documents(chunks, embeddings)
@@ -36,7 +36,7 @@ def ask_video_question(req: QueryRequest):
 
     Model = ChatGoogleGenerativeAI(
         model="gemini-1.5-flash",
-        google_api_key=os.environ["AIzaSyCxfdxizhg9dztb_Ky5pNScmT9vITpGZ3s"]
+        google_api_key=google_api_key
         temperature=0.1
     )
 
