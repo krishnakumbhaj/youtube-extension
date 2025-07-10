@@ -28,7 +28,7 @@ def ask_video_question(req: QueryRequest):
 
     embeddings = GoogleGenerativeAIEmbeddings(
         model="models/embedding-001",
-        google_api_key="AIzaSyCxfdxizhg9dztb_Ky5pNScmT9vITpGZ3s"
+        google_api_key=os.environ["AIzaSyCxfdxizhg9dztb_Ky5pNScmT9vITpGZ3s"]
     )
 
     vector_store = FAISS.from_documents(chunks, embeddings)
@@ -36,7 +36,7 @@ def ask_video_question(req: QueryRequest):
 
     Model = ChatGoogleGenerativeAI(
         model="gemini-1.5-flash",
-        google_api_key="AIzaSyCxfdxizhg9dztb_Ky5pNScmT9vITpGZ3s",
+        google_api_key=os.environ["AIzaSyCxfdxizhg9dztb_Ky5pNScmT9vITpGZ3s"]
         temperature=0.1
     )
 
